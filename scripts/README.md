@@ -10,11 +10,29 @@ Chạy **từ thư mục gốc repo**. Python 3.10+, chỉ thư viện chuẩn. 
 | 1–2 | `score_findings.py` | tự đo `errors.json` + `trace.json` (F1 làm tròn); `--truth-dir` là chế độ giảng viên | `report.md` |
 | 2 | `merge_review.py` | gộp lỗi luật + dòng `confirmed` của `review_log.csv` | `errors.json` |
 | 1 | `pngutil.py` | đọc/ghi PNG RGB, đổi màu ↔ id segment | (thư viện) |
+| 2 | `view_candidate.py` | mở một ứng viên với box detection và viền segment panoptic | ảnh overlay để review bằng mắt (Pillow) |
+| 2 | `review_candidates.py` | mở từng ứng viên, nhập confirmed/rejected, ghi reviewer và ghi chú | cập nhật `review_log.csv` |
 | 3–4 | `lineage.py` | ghi `decision` / `release --parent`, hỏi `impact` | `runs/lineage.jsonl` |
 | 4 | `pack_release.py` | zip tái lập + sha256 | `<v2>.zip`, `<v2>.sha256` |
 | 4 | `check_handover.py` | kiểm phần bàn giao, mã H1–H17 | (màn hình) |
 | nộp | `export_submission.py` | `runs/` → `submission/`; `--import` cho người chấm | `submission/r<seed>/` |
 | | `metrics.py` | định nghĩa nhóm lỗi và công thức điểm | (thư viện) |
+
+Mở một ứng viên để xem ảnh phóng to với box đỏ và viền cyan của panoptic thing:
+
+```powershell
+py scripts/view_candidate.py runs/r3007/delivery runs/r3007/candidates.json --index 0 --zoom 3
+```
+
+Chỉ số `--index` bắt đầu từ 0; tăng chỉ số để xem ứng viên tiếp theo.
+
+Để review theo từng phần và ghi thẳng vào CSV:
+
+```powershell
+py scripts/review_candidates.py runs/r3007 --reviewer "<Tên thành viên>" --start 0 --count 29 --zoom 3
+```
+
+Lặp lại với khoảng tiếp theo cho các thành viên. Với 171 ứng viên và 6 thành viên, gợi ý các khoảng: `0–28`, `29–57`, `58–86`, `87–115`, `116–144`, `145–170`.
 
 ## Mã kiểm của `check_handover.py`
 

@@ -1,6 +1,6 @@
 # Nhóm <<XX>>
 
-- Seed luyện tập: <<số>>
+- Seed luyện tập: 3007
 - Repo: <<URL>>
 
 | Họ và tên | MSHV | Tài khoản GitHub | Phần chính |
